@@ -1,0 +1,45 @@
+#!/bin/bash
+#SBATCH -n 16
+#SBATCH -p main
+#SBATCH --qos main
+#SBATCH -N 1
+#SBATCH --mem=20G
+#SBATCH --mail-user=mrmckain@ua.edu
+#SBATCH --mail-type=ALL  
+
+#This script is for running Pacbio HiFi data assemblies. You will likely not need alter the paramters. However, you can explore parameters here: https://github.com/chhylp123/hifiasm.
+
+#You can alter the output file name accordingly. 
+
+#$1 = Base name for all output files.
+#$2 = Reads
+#$3 = Purge level
+
+module load miniconda3/envs/
+conda activate jcvi
+
+
+export PATH=$PATH:/grps2/mrmckain/bin/last/bin
+
+
+#python -m jcvi.compara.synteny depth --histogram pharus.ananas.anchors
+#python -m jcvi.compara.synteny depth --histogram joinvillea.ananas.anchors
+#python -m jcvi.compara.synteny depth --histogram joinvillea.pharus.anchors
+#python -m jcvi.compara.catalog ortholog pharus ananas --no_strip_names --genomenames "Pharus latifolius*_*Ananas comosus"
+
+#python -m jcvi.compara.catalog ortholog  joinvillea ananas --no_strip_names --genomenames "Joinvillea ascendens*_*Ananas comosus"
+#python -m jcvi.compara.catalog ortholog typha joinvillea --no_strip_names #--dist 30
+
+#python -m jcvi.compara.catalog ortholog typha pharus --no_strip_names
+
+#python -m jcvi.compara.catalog ortholog typha sorghum --no_strip_names
+
+#python -m jcvi.compara.catalog ortholog joinvillea pharus --no_strip_names --genomenames "Joinvillea ascendens*_*Pharus latifolius"
+
+#python -m jcvi.compara.catalog ortholog joinvillea sorghum --no_strip_names
+
+python -m jcvi.compara.catalog ortholog joinvillea joinvillea --no_strip_names
+
+python -m jcvi.compara.catalog ortholog ananas ananas --no_strip_names
+
+python -m jcvi.compara.catalog ortholog pharus pharus --no_strip_names
