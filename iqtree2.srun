@@ -1,0 +1,14 @@
+#!/bin/bash
+#SBATCH -n 4
+#SBATCH -N 1
+#SBATCH --mem=5G
+#SBATCH -p threaded
+#SBATCH --qos threaded
+
+
+#module load bio/raxml/
+#source /share/apps/intel/ics/2011.0.013/ictvars.csh
+#srun raxml-ng --all --msa $1 --model GTR+G --tree pars{20},rand{20} --bs-trees 500 --threads 4 --seed 1233435 --outgroup $3 --prefix $2
+#srun raxml-ng -T 4 -f a -x 111123 -p 1233435 -N 500 -m GTRGAMMAI -s $1 -n $2 -o $3 -w $MYDIR > raxml_runt.out 
+
+/grps2/mrmckain/bin/iqtree-2.2.2.6-Linux/bin/iqtree2 -s $1 -T 4 -B 1000 -alrt 1000 --prefix $2 -o $3
